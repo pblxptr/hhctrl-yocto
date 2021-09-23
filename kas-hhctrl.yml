@@ -1,0 +1,32 @@
+header:
+  version: 10
+machine: hhctrl
+distro: cygnos-dev
+target: hhctrl-image-dev
+repos:
+  meta-openembedded:
+    url: "https://git.openembedded.org/meta-openembedded"
+    refspec: hardknott
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+  poky:
+    url: "https://git.yoctoproject.org/git/poky"
+    refspec: hardknott
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+  meta-raspberrypi:
+    url: "https://git.yoctoproject.org/git/meta-raspberrypi"
+    refspec: hardknott
+  meta-shmpc:
+    url: "https://github.com/pblxptr/meta-shmpc"
+    layers:
+      meta-shmpc-bsp:
+      meta-shmpc-os:
+local_conf_header:
+  meta-hhctrl:
+    DL_DIR = "/home/pp/yocto-hh/build/downloads"
+
