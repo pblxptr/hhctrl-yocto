@@ -1,0 +1,8 @@
+[Unit]
+Description=Henhouse Controller Management Service
+
+[Service]
+ExecStart=/usr/bin/hhctrl-mgmt
+
+[Install]
+WantedBy=multi-user.target
