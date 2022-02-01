@@ -27,8 +27,3 @@ repos:
       meta-shmpc-bsp:
       meta-shmpc-os:
   meta-hhctrl:
-
-local_conf_header:
-  meta-hhctrl:
-    DL_DIR = "/home/pp/yocto-hh/build/downloads"
-
