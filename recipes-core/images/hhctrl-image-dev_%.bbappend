@@ -2,21 +2,21 @@ DESCRIPTION = "Henhouse Controller dev image"
 
 inherit core-image
 
-TOOLCHAIN_TARGET_TASK_append = " libstdc++-staticdev"
+TOOLCHAIN_TARGET_TASK:append = " libstdc++-staticdev"
 
 SUPPORT_LIBRARIES = " \
-  poco \
   boost \
+  protobuf \
   curl \
   spdlog \
   fmt \
+  zeromq \
 "
 
 APPS = " \
-  hhctrl-mgmt \
+ hhctrl-mgmt \
 "
 
 IMAGE_INSTALL += " \
-  ${SUPPORT_LIBRARIES} \
   ${APPS} \
 "
