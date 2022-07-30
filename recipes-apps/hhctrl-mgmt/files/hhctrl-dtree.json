@@ -1,0 +1,43 @@
+
+[
+  {
+    "model" : "hatch",
+    "compatible" : "sysfs_hatch2sr",
+    "sysfs_path" : "/sys/class/hatch2sr/hatch2sr"
+  },
+  {
+    "model" : "rgb_led",
+    "compatible" : "sysfs_rgbled_indicator",
+    "leds" : [
+      {
+        "model"      : "led",
+        "compatible" : "sysfs_led",
+        "sysfs_path" : "/sys/class/leds/red",
+        "color" : "red"
+      },
+      {
+        "model"      : "led",
+        "compatible" : "sysfs_led",
+        "sysfs_path" : "/sys/class/leds/green",
+        "color" : "green"
+      },
+      {
+        "model"      : "led",
+        "compatible" : "sysfs_led",
+        "sysfs_path" : "/sys/class/leds/blue",
+        "color" : "blue"
+      }
+    ]
+  },
+  {
+    "model" : "temp sensor",
+    "compatible" : "sysfs_ds18b20",
+    "sysfs_path" : "/sys/devices/w1_bus_master1/28-00000cfbcc53"
+  },
+  {
+    "model" : "cpu temp sensor",
+    "compatible" : "sysfs_cpu_temp_sensor",
+    "sysfs_path" : "/sys/devices/virtual/thermal/thermal_zone0"
+  }
+]
+

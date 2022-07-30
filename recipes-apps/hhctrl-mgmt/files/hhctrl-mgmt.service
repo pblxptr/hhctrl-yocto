@@ -2,7 +2,7 @@
 Description=Henhouse Controller Management Service
 
 [Service]
-ExecStart=/usr/bin/hhctrl-mgmt
+ExecStart=/usr/bin/hhctrl-mgmt /home/root/app-config.json
 
 [Install]
 WantedBy=multi-user.target

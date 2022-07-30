@@ -1,0 +1,10 @@
+{
+    "dtree_file" : "/home/root/hhctrl-dtree.json",
+    "entity_client_config" : {
+        "server_address" : "192.168.0.115",
+        "server_port" : 1883,
+        "keep_alive_interval" : 30,
+        "max_reconnect_attempts" : 5,
+        "reconnect_delay_seconds" : 5
+    }
+}
