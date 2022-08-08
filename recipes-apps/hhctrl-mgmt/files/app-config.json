@@ -4,7 +4,7 @@
         "server_address" : "192.168.0.115",
         "server_port" : 1883,
         "keep_alive_interval" : 30,
-        "max_reconnect_attempts" : 5,
-        "reconnect_delay_seconds" : 5
+        "max_reconnect_attempts" : 10,
+        "reconnect_delay_seconds" : 20
     }
 }
