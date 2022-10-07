@@ -2,7 +2,8 @@ SUMMARY = "FMT library recipe"
 SECTION = ""
 LICENSE = "MIT"
 
-SRC_URI = "git://github.com/fmtlib/fmt.git;protocol=https;tag=master"
+SRCREV = "a33701196adfad74917046096bf5a2aa0ab0bb50"
+SRC_URI = "git://github.com/fmtlib/fmt.git;protocol=https;tag=9.1.0"
 
 S = "${WORKDIR}"
 

@@ -20,9 +20,20 @@ FILES:${PN} += "${bindir}/* \
   /home/root/app-config.json " 
 
 S = "${WORKDIR}/git"
-EXTRA_OECMAKE = ""
+
+do_configure[network] =  "1"
+do_compile[network] = "1"
 
 DEPENDS += " curl boost protobuf protobuf-native grpc icon mqttcpp"
+
+OECMAKE_GENERATOR = "Unix Makefiles"
+EXTRA_OECMAKE:append = "-DFETCHCONTENT_FULLY_DISCONNECTED=OFF"
+
+#do_configure:prepend() {
+#  echo "set(ENV{GIT_PROXY_COMMAND} \"oe-git-proxy\")" | cat - ${WORKDIR}/git/CMakeLists.txt > temp && mv temp ${WORKDIR}/git/CMakeLists.txt
+#  echo "set(ENV{NO_PROXY} *)" | cat - ${WORKDIR}/git/CMakeLists.txt > temp && mv temp ${WORKDIR}/git/CMakeLists.txt
+#	echo "set(ENV{no_proxy} *)" | cat - ${WORKDIR}/git/CMakeLists.txt > temp && mv temp ${WORKDIR}/git/CMakeLists.txt
+#}
 
 do_install:append() {
   install -m 0755 -d ${D}${bindir}
