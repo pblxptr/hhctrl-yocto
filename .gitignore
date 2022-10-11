@@ -1,0 +1,6 @@
+build
+meta-openembedded/
+meta-raspberrypi/
+meta-shmpc/
+meta-swupdate/
+poky/
