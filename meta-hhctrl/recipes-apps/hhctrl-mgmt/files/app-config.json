@@ -1,7 +1,10 @@
 {
+    "log_dir" : "/data/app_logs",
     "dtree_file" : "/home/root/hhctrl-dtree.json",
     "entity_client_config" : {
-        "server_address" : "192.168.0.115",
+        "username" : "ha_user",
+        "password" : "test_password",
+        "server_address" : "192.168.0.101",
         "server_port" : 1883,
         "keep_alive_interval" : 30,
         "max_reconnect_attempts" : 10,
