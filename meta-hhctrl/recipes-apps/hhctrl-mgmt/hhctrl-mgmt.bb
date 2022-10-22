@@ -29,12 +29,6 @@ DEPENDS += " curl boost protobuf protobuf-native grpc icon mqttcpp"
 OECMAKE_GENERATOR = "Unix Makefiles"
 EXTRA_OECMAKE:append = "-DFETCHCONTENT_FULLY_DISCONNECTED=OFF"
 
-#do_configure:prepend() {
-#  echo "set(ENV{GIT_PROXY_COMMAND} \"oe-git-proxy\")" | cat - ${WORKDIR}/git/CMakeLists.txt > temp && mv temp ${WORKDIR}/git/CMakeLists.txt
-#  echo "set(ENV{NO_PROXY} *)" | cat - ${WORKDIR}/git/CMakeLists.txt > temp && mv temp ${WORKDIR}/git/CMakeLists.txt
-#	echo "set(ENV{no_proxy} *)" | cat - ${WORKDIR}/git/CMakeLists.txt > temp && mv temp ${WORKDIR}/git/CMakeLists.txt
-#}
-
 do_install:append() {
   install -m 0755 -d ${D}${bindir}
   install -d ${D}/${systemd_system_unitdir}

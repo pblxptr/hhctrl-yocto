@@ -35,6 +35,7 @@ APPS = " \
 
 IMAGE_INSTALL = " \
   packagegroup-base \
+  hw-info \
   ${APPS} \
   ${SWUPDATE} \
 "
