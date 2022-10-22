@@ -1,5 +1,5 @@
 {
-    "log_dir" : "/data/app_logs",
+    "log_dir" : "/persistent_data/app_logs",
     "dtree_file" : "/home/root/hhctrl-dtree.json",
     "entity_client_config" : {
         "username" : "ha_user",
