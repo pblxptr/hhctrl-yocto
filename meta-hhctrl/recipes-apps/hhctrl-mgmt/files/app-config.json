@@ -4,7 +4,7 @@
     "entity_client_config" : {
         "username" : "ha_user",
         "password" : "test_password",
-        "server_address" : "192.168.0.101",
+        "server_address" : "192.168.3.201",
         "server_port" : 1883,
         "keep_alive_interval" : 30,
         "max_reconnect_attempts" : 10,

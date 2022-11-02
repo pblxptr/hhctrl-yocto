@@ -40,7 +40,7 @@ void engine_deinit(engine_t* engine)
 
 void engine_start(engine_t* engine)
 {
-  pr_info("%s\n", __FUNCTION__);
+  // pr_info("%s\n", __FUNCTION__);
 
   if (engine_get_state(engine) == ENGINE_STATE_RUNNING) {
     return;
@@ -57,7 +57,7 @@ void engine_start(engine_t* engine)
 
 void engine_stop(engine_t* engine)
 {
-  pr_info("%s\n", __FUNCTION__);
+  // pr_info("%s\n", __FUNCTION__);
 
   if (engine_get_state(engine) == ENGINE_STATE_IDLE) {
     return;
@@ -72,14 +72,14 @@ void engine_stop(engine_t* engine)
 
 int engine_get_max_speed_pct(engine_t* engine)
 {
-  pr_info("%s\n", __FUNCTION__);
+  // pr_info("%s\n", __FUNCTION__);
 
   return engine->max_speed_pct;
 }
 
 int engine_set_max_speed_pct(engine_t* engine, int value_pct)
 {
-  pr_info("%s\n", __FUNCTION__);
+  // pr_info("%s\n", __FUNCTION__);
 
   if (value_pct < ENGINE_MIN_SPEED_PCT || value_pct > ENGINE_MAX_SPEED_PCT) {
     return -EINVAL;
@@ -122,7 +122,7 @@ void engine_perform_slow_start(engine_t* engine)
 
 void engine_set_speed_pct(engine_t* engine, int speed)
 {
-  pr_info("%s, speed: %d\n", __FUNCTION__, speed);
+  // pr_info("%s, speed: %d\n", __FUNCTION__, speed);
 
   engine->speed = speed;
   pwm_config(engine->pwm, speed_pct_to_duty_ns(speed, engine->pwm->state.period), engine->pwm->state.period);
@@ -132,7 +132,7 @@ void engine_handle_timer(struct timer_list* timer)
 {
   engine_t* engine;
 
-  pr_info("%s\n", __FUNCTION__);
+  // pr_info("%s\n", __FUNCTION__);
 
   engine = container_of_safe(timer, engine_t, timer); //TODO: Add check
 

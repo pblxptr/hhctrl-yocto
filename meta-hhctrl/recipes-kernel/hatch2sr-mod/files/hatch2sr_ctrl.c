@@ -164,7 +164,7 @@ irqreturn_t openpos_sensor_isr(int irq, void* dev_id)
 {
   static unsigned long old_jiffies = 0;
 
-  pr_info("Open position sensor isr: %d\n", irq);
+  // pr_info("Open position sensor isr: %d\n", irq);
 
   return handle_sensor_isr(&old_jiffies, &hatch.openpos);
 }
@@ -173,7 +173,7 @@ irqreturn_t closedpos_sensor_isr(int irq, void* dev_id)
 {
   static unsigned long old_jiffies = 0;
 
-  pr_info("Closed position sensor isr: %d\n", irq);
+  // pr_info("Closed position sensor isr: %d\n", irq);
 
   return handle_sensor_isr(&old_jiffies, &hatch.closedpos);
 }
@@ -191,7 +191,7 @@ irqreturn_t handle_sensor_isr(unsigned long* old_jiffies, sensor_t* sensor)
   #endif
 
   if (sensor_get_value(sensor) == SENSOR_VALUE_DEACTIVATED) {
-    pr_info("Sensor deactivated skip isr\n");
+    // pr_info("Sensor deactivated skip isr\n");
     return IRQ_HANDLED;
   }
 

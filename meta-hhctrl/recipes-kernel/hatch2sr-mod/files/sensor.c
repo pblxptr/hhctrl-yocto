@@ -72,8 +72,6 @@ void sensor_handle_timer(struct timer_list* timer)
 {
   sensor_t* sensor = NULL;
 
-  pr_info("%s\n", __FUNCTION__);
-
   sensor = container_of_safe(timer, sensor_t, timer);
 
   if (sensor == NULL) {
