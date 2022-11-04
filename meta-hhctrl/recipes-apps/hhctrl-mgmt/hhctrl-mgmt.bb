@@ -6,8 +6,10 @@ inherit systemd pkgconfig cmake
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE:${PN} = "hhctrl-mgmt.service"
 
-SRCREV = "${AUTOREV}"
-SRC_URI = "git://github.com/pblxptr/hhctrl-mgmt.git;protocol=https;branch=dev"
+#SRCREV = "${AUTOREV}"
+SRCREV = "3c3f32a0755987db282f4e5949eb6d03493fd368"
+
+SRC_URI = "git://github.com/pblxptr/hhctrl-mgmt.git;protocol=https;branch=master"
 SRC_URI:append = " file://hhctrl-mgmt.service "
 SRC_URI:append = " file://hhctrl-dtree.json "
 SRC_URI:append = " file://app-config.json "
