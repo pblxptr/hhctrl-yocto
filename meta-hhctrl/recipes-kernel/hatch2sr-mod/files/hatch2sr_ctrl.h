@@ -21,6 +21,7 @@ typedef struct hatch2sr {
   sensor_t openpos;
   sensor_t closedpos;
   struct relay relay;
+  bool safe_mode;
 } hatch2sr;
 
 int hatch2sr_init(struct pwm_device* pwm, struct gpio_desc* openpos, struct  gpio_desc* closepos, struct gpio_desc* relay);
@@ -34,3 +35,5 @@ void hatch2sr_engine_set_slow_start(bool slow_start);
 bool hatch2sr_engine_get_slow_start(void);
 int hatch2sr_engine_get_max_speed_pct(void);
 int hatch2sr_engine_set_max_speed_pct(int max_speed_pct);
+int hatch2sr_set_safe_mode(bool safe_mode);
+bool hatch2sr_get_safe_mode(void);

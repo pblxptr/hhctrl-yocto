@@ -30,7 +30,9 @@ SWUPDATE = "\
 "
 
 APPS = " \
- hhctrl-mgmt \
+  hhctrl-mgmt \
+  layer-version \
+  network-watcher \
 "
 
 IMAGE_INSTALL = " \

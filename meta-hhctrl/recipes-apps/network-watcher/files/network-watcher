@@ -1,0 +1,76 @@
+#!/bin/sh
+
+count=1
+timeout=5
+target_host="192.168.5.1"
+test_network="ping -w ${timeout} ${target_host}"
+sleep_time=5
+restart_network="systemctl restart networking"
+network_available=99
+last_check_time=`date +"%Y-%m-%d %H:%M:%S"`
+logfile="/tmp/network-status.txt"
+
+log_status() {
+	if [ ! -f $logfile ];
+	then
+		touch $logfile
+	fi
+
+
+	echo "$1" >> $logfile
+}
+
+
+update_network_availibility() {
+	curr_time=`date +"%Y-%m-%d %H:%M:%S"`
+
+	last_timestamp=$(date -d "$last_check_time" +%s)
+	curr_timestamp=$(date -d "$curr_time" +%s)
+	diff=$((curr_timestamp - last_timestamp))
+
+	h=$((diff / 3600))
+	diff=$((diff % 3600))
+	m=$((diff / 60))
+	s=$((diff % 60))
+
+	diff_info="$h hours $m minutes $s seconds"
+
+	if [ $network_available -eq $1 ]; 
+	then
+		return
+	fi
+
+	status_info=""
+
+	if [ $1 -eq 0 ];
+	then
+		network_available=0
+		status_info="Network is down. Uptime: $last_check_time - $curr_time  $diff_info"
+	else
+		network_available=1
+		status_info="Network is up. Downtime: $last_check_time - $curr_time  $diff_info"
+	fi
+
+	echo $status_info
+	log_status "$status_info"
+
+	last_check_time=$curr_time
+}
+
+while [ 1 ]
+do
+	$test_network
+
+	if [ $? -ne 0 ];
+	then
+		update_network_availibility 0
+		
+		echo "Restarting networking subsystem..."
+		echo $restart_network
+		sleep 5	
+	else
+		update_network_availibility 1
+	fi
+
+	sleep $sleep_time
+done

@@ -54,6 +54,8 @@ int hatch2sr_init(struct pwm_device* pwm, struct gpio_desc* openpos, struct  gpi
     return -1;
   }
 
+  hatch.safe_mode = true;
+
   return 0;
 }
 
@@ -159,12 +161,22 @@ int hatch2sr_engine_set_max_speed_pct(int max_speed_pct)
   return engine_set_max_speed_pct(&hatch.engine, max_speed_pct);
 }
 
+int hatch2sr_set_safe_mode(bool safe_mode)
+{
+  hatch.safe_mode = safe_mode;
+
+  return 0;
+}
+
+bool hatch2sr_get_safe_mode()
+{
+  return hatch.safe_mode;
+}
+
 /* Hatch private function declarations */
 irqreturn_t openpos_sensor_isr(int irq, void* dev_id)
 {
   static unsigned long old_jiffies = 0;
-
-  // pr_info("Open position sensor isr: %d\n", irq);
 
   return handle_sensor_isr(&old_jiffies, &hatch.openpos);
 }
@@ -172,8 +184,6 @@ irqreturn_t openpos_sensor_isr(int irq, void* dev_id)
 irqreturn_t closedpos_sensor_isr(int irq, void* dev_id)
 {
   static unsigned long old_jiffies = 0;
-
-  // pr_info("Closed position sensor isr: %d\n", irq);
 
   return handle_sensor_isr(&old_jiffies, &hatch.closedpos);
 }
@@ -205,6 +215,10 @@ bool can_change_position(void)
   hatch_status status;
 
   status = hatch2sr_get_status();
+
+  if (hatch.safe_mode != true) {
+    return status != HATCH_STATUS_CHANGING_POSITION;
+  } 
 
   return status != HATCH_STATUS_CHANGING_POSITION
     && status != HATCH_STATUS_FAULTY

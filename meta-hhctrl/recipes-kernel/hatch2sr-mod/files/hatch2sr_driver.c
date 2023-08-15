@@ -47,6 +47,8 @@ ssize_t hatch2sr_show_attr_engine_slow_start(struct device *dev, struct device_a
 ssize_t hatch2sr_store_attr_engine_slow_start(struct device *dev, struct device_attribute *attr, const char *buf, size_t count);
 ssize_t hatch2sr_show_attr_engine_max_speed(struct device *dev, struct device_attribute *attr, char *buf);
 ssize_t hatch2sr_store_attr_engine_max_speed(struct device *dev, struct device_attribute *attr, const char *buf, size_t count);
+ssize_t hatch2sr_show_attr_safe_mode(struct device *dev, struct device_attribute *attr, char *buf);
+ssize_t hatch2sr_store_attr_safe_mode(struct device *dev, struct device_attribute *attr, const char *buf, size_t count);
 
 /*
 **	Function prototypes for file operations
@@ -93,12 +95,17 @@ static DEVICE_ATTR(engine_max_speed, S_IRUGO | S_IWUSR,
   hatch2sr_store_attr_engine_max_speed
 );
 
+static DEVICE_ATTR(safe_mode, S_IRUGO | S_IWUSR,
+  hatch2sr_show_attr_safe_mode,
+  hatch2sr_store_attr_safe_mode
+);
 
 static struct attribute* hatch2sr_attrs[] = {
   &dev_attr_status.attr,
   &dev_attr_change_position.attr,
   &dev_attr_slow_start.attr,
   &dev_attr_engine_max_speed.attr,
+  &dev_attr_safe_mode.attr,
   NULL
 };
 
@@ -235,6 +242,43 @@ ssize_t hatch2sr_store_attr_engine_max_speed(struct device *dev, struct device_a
 }
 
 /*
+** This function is called while reading the slow_start attribute.
+*/
+ssize_t hatch2sr_show_attr_safe_mode(struct device *dev, struct device_attribute *attr, char *buf)
+{
+  bool safe_mode;
+
+  pr_info("%s\n", __FUNCTION__);
+
+  safe_mode = hatch2sr_get_safe_mode();
+
+  if (safe_mode) {
+    return sysfs_emit(buf, "%s\n", "1");
+  } else {
+    return sysfs_emit(buf, "%s\n", "0");
+  }
+}
+
+/*
+** This function is called while writing to the slow_start attribute.
+*/
+ssize_t hatch2sr_store_attr_safe_mode(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+{
+  pr_info("%s\n", __FUNCTION__);
+
+  if (sysfs_streq(buf, "1")) {
+    hatch2sr_set_safe_mode(true);
+  } else if (sysfs_streq(buf, "0")) {
+    hatch2sr_set_safe_mode(false);
+  } else {
+    return -EINVAL;
+  }
+
+  return count;
+}
+
+
+/*
 ** This function is called when somebody has called close driver file.
 */
 static int hatch2sr_fop_release(struct inode* inode, struct file* file)
@@ -280,7 +324,8 @@ static int hatch2sr_driver_probe(struct platform_device* pdev)
   priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
   if (!priv)
     return -ENOMEM;
-
+  
+  //Set driver data
   dev_set_drvdata(dev, priv);
 
   //Register msic device

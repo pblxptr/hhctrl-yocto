@@ -1,0 +1,8 @@
+[Unit]
+Description=Network Watcher
+
+[Service]
+ExecStart=/usr/bin/network-watcher
+
+[Install]
+WantedBy=multi-user.target

@@ -2,6 +2,7 @@
 Description=Henhouse Controller Management Service
 
 [Service]
+Environment="SPDLOG_LEVEL=debug,mgmt:poller=off"
 ExecStart=/usr/bin/hhctrl-mgmt /home/root/app-config.json
 
 [Install]
